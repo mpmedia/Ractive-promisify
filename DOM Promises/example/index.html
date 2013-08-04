@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang='en-GB'>
+<head>
+	<meta charset='utf-8'>
+	<title>Ractive with Promises</title>
+
+	<!-- CSS -->
+	<link rel='stylesheet' href='../../shared/main.css'>
+</head>
+
+<body>
+	
+	<div id='main'></div>
+
+	<script id='tpl' type='text/ractive'>
+		<h1 intro='fade'>Ractive.js with Promises</h1>
+
+		{{#one}}
+			<div intro='typewriter'>
+				<p>A few operations with <span class='logo'>Ractive.js</span> can be asynchronous &ndash; the initial render, plus <code>set()</code>, <code>animate()</code>, <code>update()</code> and <code>teardown()</code>.</p>
+
+				<p>They're asynchronous if they cause one or more <a href='https://github.com/Rich-Harris/Ractive/wiki/Transitions'>transitions</a> that are themselves asynchronous. In these cases, you often want to execute some code once the operation is complete.</p>
+
+				<p>Normally, you achieve this by passing a <em>callback</em>, e.g. <code>ractive.set( 'foo', bar, doSomething )</code>. But this can get unwieldy when you're trying to chain lots of operations together in a complex fashion.</p>
+
+				<p>Because of these situations, in recent years '<a href='http://promises-aplus.github.io/promises-spec/'>promises</a>' (and deferreds, which are similar) have become increasingly popular. <span class='logo'>Ractive.js</span> doesn't support promises 'out of the box' because there are so many different implementations, but it's easy to make it work with your promise library of choice.</p>
+			</div>
+		{{/one}}
+
+		{{#two}}
+			<div intro='fade:1000' class='github'>
+				<a href='https://github.com/Rich-Harris/Ractive-promisify'>Find the code on GitHub</a>
+				
+				{{#three}}
+					<span intro='fade:1000'>(and add support for your own favourite promises implementation)</span>
+				{{/three}}
+			</div>
+		{{/two}}
+
+		{{#four}}
+			<div intro='typewriter'>
+				<p>View source to see how the transitions on this page were chained together.</p>
+			</div>
+		{{/four}}
+	</script>
+
+	<!-- JS -->
+	<script src='../../shared/Ractive.js'></script>
+	<script src='lib/Promise.js'></script>
+	<script src='../Ractive-promisify.js'></script>
+
+	<script>
+		var ractive, one, two, three, four;
+
+		one = function () {
+			return ractive.set( 'one', true );
+		};
+
+		two = function () {
+			return ractive.set( 'two', true );
+		};
+
+		three = function () {
+			return ractive.set( 'three', true );
+		};
+
+		four = function () {
+			return ractive.set( 'four', true );
+		};
+
+		ractive = new Ractive({
+			el: 'main',
+			template: '#tpl'
+		});
+
+		ractive.then( one ).then( two ).then( three ).then( four );
+	</script>
+</body>
+</html>
