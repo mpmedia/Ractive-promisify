@@ -7,7 +7,7 @@ They're asynchronous if they cause one or more [transitions](https://github.com/
 
 Normally, you achieve this by passing a *callback*, e.g. `ractive.set( 'foo', bar, doSomething )`. But this can get unwieldy when you're trying to chain lots of operations together in a complex fashion.
 
-Because of these situations, in recent years '[promises](http://promises-aplus.github.io/promises-spec/)' (and deferreds, which are similar) have become increasingly popular. **Ractive.js** doesn't support promises 'out of the box' because there are so many different implementations, but it's easy to make it work with your promise library of choice.
+Because of these situations, in recent years '[promises](http://promises-aplus.github.io/promises-spec/)' (and deferreds, which are similar) have become increasingly popular. Ractive.js doesn't support promises 'out of the box' because there are so many different implementations, but it's easy to make it work with your promise library of choice.
 
 See the examples in this repo for more information.
 
