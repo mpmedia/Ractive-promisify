@@ -10,14 +10,11 @@
 		// the async-able methods
 		var Promisified = Ractive.extend({
 
-			// We need to create a promise that represents the state of the initial
+			// We need to create a deferred that represents the state of the initial
 			// render, so that we can add handlers to it via a `then` method
 			beforeInit: function ( options ) {
 				var complete = options.complete;
 
-				// We're using the DOM Promises polyfill (https://github.com/slightlyoff/Promises)
-				// since it's the closest thing we have to an actual standard
-				// http://dom.spec.whatwg.org/#promises)
 				this.renderDeferred = new $.Deferred();
 				options.complete = this.renderDeferred.resolve;
 
@@ -29,7 +26,7 @@
 			},
 
 			// We overwrite the `set`, `animate`, `teardown` and `update` methods so that they return
-			// promises. This is possible because Ractive.extend() allows you to use this._super
+			// deferreds. This is possible because Ractive.extend() allows you to use this._super
 			// to call the overwritten method. They all follow the same basic pattern:
 
 			set: function ( keypath, value, complete ) {
